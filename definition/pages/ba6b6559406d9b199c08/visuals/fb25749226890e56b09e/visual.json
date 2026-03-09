@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
-  "name": "0a94b03b025e1bd01d35",
+  "name": "fb25749226890e56b09e",
   "position": {
-    "x": 142.71059816747351,
-    "y": 171.52716125898257,
-    "z": 0,
+    "x": 504.97596274644468,
+    "y": 79.5886028241679,
+    "z": 1,
     "height": 279.93232717465958,
-    "width": 279.93232717465958,
-    "tabOrder": 0
+    "width": 644.94212633377447,
+    "tabOrder": 1
   },
   "visual": {
-    "visualType": "pieChart",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
         "Category": {
@@ -23,11 +23,11 @@
                       "Entity": "customer_with_gender_city"
                     }
                   },
-                  "Property": "gender"
+                  "Property": "city"
                 }
               },
-              "queryRef": "customer_with_gender_city.gender",
-              "nativeQueryRef": "gender",
+              "queryRef": "customer_with_gender_city.city",
+              "nativeQueryRef": "city",
               "active": true
             }
           ]
@@ -51,7 +51,7 @@
                 }
               },
               "queryRef": "CountNonNull(customer_with_gender_city.customer_id)",
-              "nativeQueryRef": "Count of customer_id"
+              "nativeQueryRef": "customer_id"
             }
           ]
         }
@@ -85,7 +85,21 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "ccce89ce56dca075958c",
+        "name": "68d6b2c0c404747bc01b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_with_gender_city"
+              }
+            },
+            "Property": "city"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "eff30f830ec597c705bc",
         "field": {
           "Aggregation": {
             "Expression": {
@@ -102,20 +116,6 @@
           }
         },
         "type": "Advanced"
-      },
-      {
-        "name": "03fab1b0e081327d46e6",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "customer_with_gender_city"
-              }
-            },
-            "Property": "gender"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }
