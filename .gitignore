@@ -1,0 +1,4 @@
+*.pbi.localSettings.json
+.DS_Store
+Thumbs.db
+.vscode/
