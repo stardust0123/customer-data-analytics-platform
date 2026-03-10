@@ -1,0 +1,82 @@
+table campaign_interactions
+	lineageTag: f0e473a3-b15e-481f-809c-4ccf2d023f11
+
+	column interaction_id
+		dataType: string
+		lineageTag: be7e37ec-5dc9-4c31-9345-cc7ba5195da4
+		summarizeBy: none
+		sourceColumn: interaction_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_id
+		dataType: string
+		lineageTag: f8f0f5fb-f015-4fe1-bad2-fc99d765820a
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 726a7081-b108-4498-b7d1-1e5355ef68f2
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_type
+		dataType: string
+		lineageTag: a29bb9ef-9315-46c8-b407-62647140eb2c
+		summarizeBy: none
+		sourceColumn: event_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_time
+		dataType: string
+		lineageTag: 20bff709-67d2-4ae3-bae8-e4cb0f77c7d8
+		summarizeBy: none
+		sourceColumn: event_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 05330cc9-b5f1-43e9-b858-1b8a79296ff6
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column coupon_code
+		dataType: string
+		lineageTag: 56e6855b-e938-4636-9282-f0865298afc3
+		summarizeBy: none
+		sourceColumn: coupon_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: 6e034c79-ed0c-4506-9222-2a095b46e68a
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition campaign_interactions = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\THAOVY\Downloads\SWE40006\campaign_interactions.csv"),[Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"interaction_id", type text}, {"campaign_id", type text}, {"customer_id", type text}, {"event_type", type text}, {"event_time", type text}, {"channel", type text}, {"coupon_code", type text}, {"order_id", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

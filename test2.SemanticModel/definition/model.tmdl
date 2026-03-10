@@ -1,0 +1,20 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: vi-VN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["orders","customer_with_gender_city","campaign_interactions"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table orders
+ref table customer_with_gender_city
+ref table campaign_interactions
+
+ref cultureInfo en-US
+

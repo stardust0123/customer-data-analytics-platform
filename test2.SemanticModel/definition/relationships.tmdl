@@ -1,0 +1,8 @@
+relationship AutoDetected_b2a2392b-db26-4e59-a834-fe1ae72f55ab
+	fromColumn: orders.customer_id
+	toColumn: customer_with_gender_city.customer_id
+
+relationship AutoDetected_9ba1d943-57bd-4db3-bca4-f7fbbdfeda4f
+	fromColumn: campaign_interactions.customer_id
+	toColumn: customer_with_gender_city.customer_id
+
