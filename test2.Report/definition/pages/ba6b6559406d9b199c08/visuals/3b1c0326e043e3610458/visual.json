@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "3b1c0326e043e3610458",
+  "position": {
+    "x": 702,
+    "y": 0,
+    "z": 3,
+    "height": 280,
+    "width": 578,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_with_gender_city"
+                    }
+                  },
+                  "Property": "gender"
+                }
+              },
+              "queryRef": "customer_with_gender_city.gender",
+              "nativeQueryRef": "gender",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "customer_with_gender_city"
+                        }
+                      },
+                      "Property": "customer_id"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(customer_with_gender_city.customer_id)",
+              "nativeQueryRef": "Count of customer_id"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "customer_with_gender_city"
+                      }
+                    },
+                    "Property": "customer_id"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "336deb3c0a32e19c352b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_with_gender_city"
+                  }
+                },
+                "Property": "customer_id"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e5a9b8ac9d028525a9b1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_with_gender_city"
+              }
+            },
+            "Property": "gender"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
