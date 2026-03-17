@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Thế Giới Di Động Analytics", layout="wide")
 
 # Title
-st.markdown("<h1 style='text-align: center; color: orange;'>📱 Thế Giới Di Động</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: orange;'>📱 HEADER 1: Thế Giới Di Động</h1>", unsafe_allow_html=True)
 
 # Subtitle
 st.markdown("<h3 style='text-align: center;'>Customer Data Analytics Platform</h3>", unsafe_allow_html=True)
