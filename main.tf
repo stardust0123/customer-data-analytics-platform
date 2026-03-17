@@ -26,7 +26,7 @@ resource "azurerm_linux_web_app" "streamlit" {
 
   site_config {
     application_stack {
-      docker_image_name = "jane0123/streamlit-demo:latest"
+      docker_image_name = "jane0123/streamlit-demo:v2"
     }
   }
 
