@@ -1,15 +1,12 @@
 import streamlit as st
 
-st.set_page_config(page_title="Thế Giới Di Động Analytics", layout="wide")
+st.set_page_config(page_title="Thế Giới Di Động Analytics")
 
 # Title
 st.markdown("<h1 style='text-align: center; color: orange;'> THẾ GIỚI DI ĐỘNG (TEST DEPLOYMENT AZURE)</h1>", unsafe_allow_html=True)
 
 # Subtitle
 st.markdown("<h3 style='text-align: center;'>Customer Data Analytics Platform</h3>", unsafe_allow_html=True)
-
-# Banner
-st.image("https://cdn.tgdd.vn/Files/2021/08/25/1377629/the-gioi-di-dong-1200x628.jpg", use_container_width=True)
 
 # Introduction
 st.markdown("## 🏢 About Thế Giới Di Động")
