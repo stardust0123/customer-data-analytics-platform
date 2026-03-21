@@ -18,20 +18,6 @@ PBI = {
     "reports":   "",
 }
 
-if st.button("🔀 Toggle Sidebar"):
-    components.html("""
-    <script>
-    const runToggle = () => {
-        const toggle = window.parent.document.querySelector('[data-testid="collapsedControl"]');
-        if (toggle) {
-            toggle.click();
-        }
-    };
-    setTimeout(runToggle, 50);
-    setTimeout(runToggle, 150);
-    setTimeout(runToggle, 300);
-    """, height=0)
-
 # ─── CSS — Full Dark Mode ─────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -281,6 +267,17 @@ with st.sidebar:
                 "color:rgba(255,255,255,.2);'>v1.0.0 · © 2024 The Gioi Di Dong</div>",
                 unsafe_allow_html=True)
 
+
+# Fixed sidebar toggle button (always visible)
+components.html("""
+<button id="sidebar-toggle" style="position:fixed;top:10px;left:10px;z-index:1000;background:#FFD400;color:#000;border:none;padding:8px;border-radius:4px;font-size:16px;">☰</button>
+<script>
+document.getElementById('sidebar-toggle').addEventListener('click', function() {
+    const toggle = window.parent.document.querySelector('[data-testid="collapsedControl"]');
+    if (toggle) toggle.click();
+});
+</script>
+""", height=0)
 
 # ─── HEADER — yellow brand bar ────────────────────────────────────────────────
 st.markdown("""
