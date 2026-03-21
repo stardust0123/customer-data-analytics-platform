@@ -18,6 +18,20 @@ PBI = {
     "reports":   "",
 }
 
+if st.button("🔀 Toggle Sidebar"):
+    components.html("""
+    <script>
+    const runToggle = () => {
+        const toggle = window.parent.document.querySelector('[data-testid="collapsedControl"]');
+        if (toggle) {
+            toggle.click();
+        }
+    };
+    setTimeout(runToggle, 50);
+    setTimeout(runToggle, 150);
+    setTimeout(runToggle, 300);
+    """, height=0)
+
 # ─── CSS — Full Dark Mode ─────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -40,8 +54,10 @@ st.markdown("""
 
 /* ── Remove Streamlit chrome ── */
 #MainMenu, footer, header,
-.stAppHeader, .stToolbar,
-[data-testid="collapsedControl"] { display: none !important; }
+.stAppHeader, .stToolbar { display: none !important; }
+
+/* Keep navigator open/close button available */
+[data-testid="collapsedControl"] { display: block !important; }
 
 .stApp                  { background: var(--bg) !important; }
 .main .block-container  { padding: 0 !important; max-width: 100% !important; }
@@ -416,7 +432,7 @@ def page_home():
       <div class="stat-lbl">Stores</div>
     </div>
     <div>
-      <div class="stat-val">8.7M+</div>
+      <div class="stat-val">8.7M+</div>s
       <div class="stat-lbl">Orders</div>
     </div>
   </div>
