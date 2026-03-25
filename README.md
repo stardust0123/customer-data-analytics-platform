@@ -70,36 +70,41 @@ cdap-project/
 │       ├── deploy.yml
 │       └── dependabot.yml
 │
-├── frontend/                  
+├── frontend/
 │   └── app.py
 │
-├── pipelines/                 
+├── pipelines/
 │   └── dags/
-│
 │
 ├── infrastructure/
 │   └── terraform/
 │       ├── main.tf
-│       ├── .terraform.lock.hcl
+│       └── .terraform.lock.hcl
 │
-├── monitoring/                
+├── dashboards/
+│
+├── analytics/
+│   ├── rfm.sql
+│   ├── cohort.sql
+│   └── funnel.sql
+│
+├── monitoring/
 │
 ├── tests/
 │   └── test2.Report
 │
-├── static/                    
+├── static/
 │
-├── config/                    
+├── config/
 │   ├── pyrightconfig.json
 │   └── platform
 │
 ├── docker/
-│   └── Dockerfile           
+│   └── Dockerfile
 │
 ├── requirements.txt
 ├── README.md
 └── README-iac.md
-
 
 ## 🔄 Data Pipeline Flow
 
