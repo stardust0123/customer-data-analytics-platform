@@ -63,48 +63,6 @@ This project simulates a real-world **retail/e-commerce system** and is develope
 ---
 
 ## 📂 Project Structure
-cdap-project/
-│
-├── .github/
-│   └── workflows/
-│       ├── deploy.yml
-│       └── dependabot.yml
-│
-├── frontend/
-│   └── app.py
-│
-├── pipelines/
-│   └── dags/
-│
-├── infrastructure/
-│   └── terraform/
-│       ├── main.tf
-│       └── .terraform.lock.hcl
-│
-├── dashboards/
-│
-├── analytics/
-│   ├── rfm.sql
-│   ├── cohort.sql
-│   └── funnel.sql
-│
-├── monitoring/
-│
-├── tests/
-│   └── test2.Report
-│
-├── static/
-│
-├── config/
-│   ├── pyrightconfig.json
-│   └── platform
-│
-├── docker/
-│   └── Dockerfile
-│
-├── requirements.txt
-├── README.md
-└── README-iac.md
 
 ## 🔄 Data Pipeline Flow
 
