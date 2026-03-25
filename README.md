@@ -64,17 +64,42 @@ This project simulates a real-world **retail/e-commerce system** and is develope
 
 ## 📂 Project Structure
 cdap-project/
-│── data/ # Sample datasets
-│── pipelines/ # ETL scripts / DAGs
-│── models/ # Data models (fact & dimension tables)
-│── dashboards/ # Dashboard configs
-│── api/ # Segment API (optional)
-│── infrastructure/ # Terraform / IaC scripts
-│── tests/ # Unit & data quality tests
-│── docs/ # Architecture diagrams & reports
-│── README.md
+│
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml
+│       └── dependabot.yml
+│
+├── frontend/                  
+│   └── app.py
+│
+├── pipelines/                 
+│   └── dags/
+│
+│
+├── infrastructure/
+│   └── terraform/
+│       ├── main.tf
+│       ├── .terraform.lock.hcl
+│
+├── monitoring/                
+│
+├── tests/
+│   └── test2.Report
+│
+├── static/                    
+│
+├── config/                    
+│   ├── pyrightconfig.json
+│   └── platform
+│
+├── docker/
+│   └── Dockerfile           
+│
+├── requirements.txt
+├── README.md
+└── README-iac.md
 
----
 
 ## 🔄 Data Pipeline Flow
 
