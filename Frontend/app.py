@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="The Gioi Di Dong | Analytics",
     page_icon="📱",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 PBI = {
@@ -38,6 +38,43 @@ st.markdown("""
     --radius:   12px;
 }
 
+.tgdd-header {
+    background: var(--yellow);
+    height: 14vh;
+    min-height: 90px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid var(--orange);
+    box-shadow: 0 2px 20px rgba(255,212,0,.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1300;
+}
+
+.tgdd-top-nav {
+    position: fixed;
+    top: 8vh;
+    left: 0;
+    right: 0;
+    z-index: 1250;
+    background: rgba(15, 15, 18, .98);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    min-height: 52px;
+    gap: 12px;
+    padding: 0 16px;
+    overflow-x: auto;
+}
+
+.stApp                  { background: var(--bg) !important; }
+.main .block-container  { padding: calc(14vh + 8vh + 32px) 18px 18px !important; max-width: 100% !important; }
+html { scroll-behavior: smooth; }
 /* ── Remove Streamlit chrome ── */
 #MainMenu, footer, header,
 .stAppHeader, .stToolbar { display: none !important; }
@@ -45,8 +82,24 @@ st.markdown("""
 /* Keep navigator open/close button available */
 [data-testid="collapsedControl"] { display: block !important; }
 
+/* Hide default sidebar and use top fixed nav instead */
+section[data-testid="stSidebar"] { display: none !important; }
+.tgdd-top-nav a {
+    color: #FFF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+.tgdd-top-nav a:hover {
+    background: rgba(255, 212, 0, .2);
+    color: #FFD400;
+}
+
 .stApp                  { background: var(--bg) !important; }
-.main .block-container  { padding: 0 !important; max-width: 100% !important; }
+.main .block-container  { padding: 132px 18px 18px !important; max-width: 100% !important; }
 html, body, [class*="css"] {
     font-family: 'Be Vietnam Pro', sans-serif !important;
     background: var(--bg);
@@ -63,9 +116,11 @@ html, body, [class*="css"] {
     gap: 13px;
     border-bottom: 3px solid var(--orange);
     box-shadow: 0 2px 20px rgba(255,212,0,.25);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 999;
+    left: 0;
+    right: 0;
+    z-index: 1300;
 }
 .logo-ring     { width: 42px; height: 42px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
 .logo-ring img { width: 36px; height: 36px; object-fit: contain; }
@@ -270,13 +325,95 @@ with st.sidebar:
 
 # Fixed sidebar toggle button (always visible)
 components.html("""
-<button id="sidebar-toggle" style="position:fixed;top:10px;left:10px;z-index:1000;background:#FFD400;color:#000;border:none;padding:8px;border-radius:4px;font-size:16px;">☰</button>
+<style>
+#sidebar-toggle { position: fixed !important; top: 10px !important; right: 10px !important; z-index: 1300 !important; background: #FFD400 !important; color: #000 !important; border: none !important; padding: 8px !important; border-radius: 4px !important; font-size: 16px !important; cursor: pointer !important; font-weight: bold !important; box-shadow: 0 4px 12px rgba(0,0,0,.25) !important; }
+</style>
+<button id="sidebar-toggle" title="Toggle sidebar">☰</button>
 <script>
-document.getElementById('sidebar-toggle').addEventListener('click', function() {
-    const toggle = window.parent.document.querySelector('[data-testid="collapsedControl"]');
-    if (toggle) toggle.click();
+const getSidebarToggle = () => {
+    return window.parent.document.querySelector('[data-testid="collapsedControl"]') ||
+           window.parent.document.querySelector('button[aria-label="collapse sidebar"]') ||
+           window.parent.document.querySelector('button[aria-label="Collapse sidebar"]') ||
+           window.parent.document.querySelector('button[aria-label="expand sidebar"]') ||
+           window.parent.document.querySelector('button[aria-label="Expand sidebar"]') ||
+           window.parent.document.querySelector('button[data-testid="collapsedControl"]');
+};
+
+const ensureRootToggle = () => {
+    const button = getSidebarToggle();
+    if (!button) return null;
+    if (!button.classList.contains('copilot-root-toggle')) {
+        button.classList.add('copilot-root-toggle');
+        button.style.position = 'fixed';
+        button.style.top = '10px';
+        button.style.left = '10px';
+        button.style.zIndex = '1200';
+        button.style.opacity = '1';
+        button.style.visibility = 'visible';
+        button.style.display = 'block';
+        if (button.parentElement && button.parentElement !== window.parent.document.body) {
+            window.parent.document.body.appendChild(button);
+        }
+    }
+    return button;
+};
+
+const refreshNativeToggleStyle = () => {
+    const t = ensureRootToggle();
+    if (!t) return;
+    t.style.display = 'block';
+    t.style.position = 'fixed';
+    t.style.top = '10px';
+    t.style.left = '10px';
+    t.style.zIndex = '1200';
+    t.style.opacity = '1';
+    t.style.visibility = 'visible';
+};
+
+const isSidebarHidden = (sidebar) => {
+    if (!sidebar) return true;
+    const style = window.getComputedStyle(sidebar);
+    if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return true;
+    const width = parseFloat(style.width);
+    return isNaN(width) || width < 80;
+};
+
+const updateButtonIcon = () => {
+    const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
+    const hidden = isSidebarHidden(sidebar);
+    document.getElementById('sidebar-toggle').textContent = hidden ? '☰' : '✕';
+};
+
+const ensureSidebarVisible = () => {
+    const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
+    const hidden = isSidebarHidden(sidebar);
+    if (hidden) {
+        const toggle = getSidebarToggle();
+        if (toggle) toggle.click();
+    }
+};
+
+setInterval(() => { refreshNativeToggleStyle(); updateButtonIcon(); }, 250);
+
+[100, 350, 800, 1400].forEach(delay => setTimeout(() => {
+    ensureSidebarVisible();
+    refreshNativeToggleStyle();
+    updateButtonIcon();
+}, delay));
+
+const btn = document.getElementById('sidebar-toggle');
+btn.addEventListener('click', () => {
+    try {
+        const toggle = getSidebarToggle();
+        if (toggle) toggle.click();
+    } catch (e) {
+        console.warn('Sidebar toggle failed:', e);
+    } finally {
+        setTimeout(() => { refreshNativeToggleStyle(); updateButtonIcon(); }, 200);
+    }
 });
-</script>
+
+updateButtonIcon();
 """, height=0)
 
 # ─── HEADER — yellow brand bar ────────────────────────────────────────────────
@@ -290,6 +427,16 @@ st.markdown("""
         <div class="brand-name">the<em>gioi</em>didong</div>
         <div class="brand-tag">Customer Data Analytics Platform</div>
     </div>
+</div>
+
+<div class="tgdd-top-nav">
+    <a href="#section-overview">Overview</a>
+    <a href="#section-customers">Customers</a>
+    <a href="#section-orders">Orders</a>
+    <a href="#section-products">Products</a>
+    <a href="#section-regional">Regional</a>
+    <a href="#section-reports">Reports</a>
+    <a href="#section-settings">Settings</a>
 </div>
 """, unsafe_allow_html=True)
 
@@ -475,35 +622,35 @@ document.getElementById('viewBtn').addEventListener('click', function() {
         spacer(32)
 
         # ── Power BI sections — anchor tags for scroll ────────────────────────
-        st.markdown('<a id="section-overview"></a>', unsafe_allow_html=True)
+        st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("📊", "Overview Dashboard")
         spacer(6)
         embed_powerbi("overview", height=620)
 
         spacer(24)
 
-        st.markdown('<a id="section-customers"></a>', unsafe_allow_html=True)
+        st.markdown('<a id="section-customers" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("👥", "Customer Analytics — RFM & CLV")
         spacer(6)
         embed_powerbi("customers", height=620)
 
         spacer(24)
 
-        st.markdown('<a id="section-orders"></a>', unsafe_allow_html=True)
+        st.markdown('<a id="section-orders" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("🛒", "Order Analytics — Revenue & Trends")
         spacer(6)
         embed_powerbi("orders", height=620)
 
         spacer(24)
 
-        st.markdown('<a id="section-products"></a>', unsafe_allow_html=True)
+        st.markdown('<a id="section-products" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("📦", "Product Analytics — Best Sellers")
         spacer(6)
         embed_powerbi("products", height=620)
 
         spacer(24)
 
-        st.markdown('<a id="section-regional"></a>', unsafe_allow_html=True)
+        st.markdown('<a id="section-regional" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("📍", "Regional Analytics")
         spacer(6)
         embed_powerbi("regional", height=620)
