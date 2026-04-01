@@ -269,7 +269,7 @@ def embed_powerbi(key: str, height: int = 620):
             <h3>Power BI Report</h3>
             <p>Add your embed URL to <code>PBI["{key}"]</code> in <code>app.py</code>.<br>
             Power BI → <strong>File → Embed → Publish to web</strong> → copy the src URL.</p>
-            
+            <iframe title="test" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
             <code>https://app.powerbi.com/view?r=...</code>
         </div>""", unsafe_allow_html=True)
 
