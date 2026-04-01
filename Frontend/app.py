@@ -264,8 +264,8 @@ def embed_powerbi(key: str, height: int = 620):
         </div>""", unsafe_allow_html=True)
     else:
         st.markdown(f"""
-        <div class="pbi-wrap">
-            <iframe title="test" width="100%" height="{height}" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        <div class="pbi-empty">
+            <iframe title="test" width="1500" height="400" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>""", unsafe_allow_html=True)
 
 
@@ -567,11 +567,19 @@ document.getElementById('viewBtn').addEventListener('click', function() {
 </body></html>
 """, height=520, scrolling=False)
 
-        spacer(28)
+
+        spacer(32)
 
         # ── Power BI sections — anchor tags for scroll ────────────────────────
+        st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
+        sec_title("Cohort & Funnel Analysis Dashboard")
+        spacer(6)
+        embed_powerbi("overview", height=620)
+
+        spacer(24)
+
         st.markdown('<a id="section-customers" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("RFM Analysis")
+        sec_title("Customer Analytics — RFM Segmentation")
         spacer(6)
         embed_powerbi("customers", height=620)
 
