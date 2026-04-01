@@ -265,7 +265,7 @@ def embed_powerbi(key: str, height: int = 620):
     else:
         st.markdown(f"""
         <div class="pbi-empty">
-            <iframe title="test" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+            <iframe title="test" width="1200" height="400" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>""", unsafe_allow_html=True)
 
 
@@ -619,7 +619,7 @@ document.getElementById('viewBtn').addEventListener('click', function() {
 
         # ── Power BI sections — anchor tags for scroll ────────────────────────
         st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("📊", "Overview Dashboard")
+        sec_title("📊", "Cohort & Funnel Analysis Dashboard")
         spacer(6)
         embed_powerbi("overview", height=620)
 
