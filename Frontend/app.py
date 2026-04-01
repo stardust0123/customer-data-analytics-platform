@@ -269,6 +269,7 @@ def embed_powerbi(key: str, height: int = 620):
             <h3>Power BI Report</h3>
             <p>Add your embed URL to <code>PBI["{key}"]</code> in <code>app.py</code>.<br>
             Power BI → <strong>File → Embed → Publish to web</strong> → copy the src URL.</p>
+            
             <code>https://app.powerbi.com/view?r=...</code>
         </div>""", unsafe_allow_html=True)
 
