@@ -604,29 +604,19 @@ document.getElementById('viewBtn').addEventListener('click', function() {
 </body></html>
 """, height=370, scrolling=False)
 
-        spacer(28)
-
-        # ── KPI Cards — st.columns + st.metric, styled dark via CSS override ──
-        sec_title("📈", "Key Performance Indicators")
-        spacer(8)
-        k1, k2, k3, k4 = st.columns(4, gap="medium")
-        k1.metric("👥 Total Customers",   "12.4M+",  "↑ +8.2% vs last year")
-        k2.metric("🛒 Total Orders 2024", "8.7M+",   "↑ +12.1% vs last year")
-        k3.metric("💰 Revenue 2024",      "34.5B ₫", "↑ +12.4% growth")
-        k4.metric("🏪 Stores Nationwide", "2,300+",  "↑ +120 new stores")
 
         spacer(32)
 
         # ── Power BI sections — anchor tags for scroll ────────────────────────
         st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("📊", "Cohort & Funnel Analysis Dashboard")
+        sec_title("Cohort & Funnel Analysis Dashboard")
         spacer(6)
         embed_powerbi("overview", height=620)
 
         spacer(24)
 
         st.markdown('<a id="section-customers" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("👥", "Customer Analytics — RFM & CLV")
+        sec_title("Customer Analytics — RFM Segmentation")
         spacer(6)
         embed_powerbi("customers", height=620)
 
