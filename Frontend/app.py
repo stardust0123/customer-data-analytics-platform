@@ -4,7 +4,7 @@ import pandas as pd
 
 st.set_page_config(
     page_title="The Gioi Di Dong | Analytics",
-    page_icon="📱",
+    page_icon="phone",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -245,9 +245,9 @@ hr { border-color: var(--border) !important; }
 
 
 # ─── HELPERS ─────────────────────────────────────────────────────────────────
-def sec_title(icon: str, text: str):
+def sec_title(text: str):
     st.markdown(f"""
-    <div class="sec-title"><span>{icon}</span> {text}</div>
+    <div class="sec-title"><span></span> {text}</div>
     """, unsafe_allow_html=True)
 
 
@@ -264,13 +264,8 @@ def embed_powerbi(key: str, height: int = 620):
         </div>""", unsafe_allow_html=True)
     else:
         st.markdown(f"""
-        <div class="pbi-empty">
-            <div class="ei">📊</div>
-            <h3>Power BI Report</h3>
-            <p>Add your embed URL to <code>PBI["{key}"]</code> in <code>app.py</code>.<br>
-            Power BI → <strong>File → Embed → Publish to web</strong> → copy the src URL.</p>
-            <iframe title="test" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
-            <code>https://app.powerbi.com/view?r=...</code>
+        <div class="pbi-wrap">
+            <iframe title="test" width="100%" height="{height}" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>""", unsafe_allow_html=True)
 
 
@@ -301,9 +296,9 @@ with st.sidebar:
 
     page = st.radio(
         "Navigation",
-        ["🏠  Home", "📊  Dashboard", "👥  Customers",
-         "🛒  Orders", "📦  Products", "📍  Regional",
-         "📈  Reports", "⚙️  Settings"],
+        ["Home", "Dashboard", "Customers",
+         "Orders", "Products", "Regional",
+         "Reports", "Settings"],
         label_visibility="hidden",
     )
 
@@ -431,13 +426,9 @@ st.markdown("""
 </div>
 
 <div class="tgdd-top-nav">
-    <a href="#section-overview">Overview</a>
-    <a href="#section-customers">Customers</a>
-    <a href="#section-orders">Orders</a>
-    <a href="#section-products">Products</a>
-    <a href="#section-regional">Regional</a>
-    <a href="#section-reports">Reports</a>
-    <a href="#section-settings">Settings</a>
+    <a href="#hero">Home</a>
+    <a href="#section-customers">RFM Analysis</a>
+    <a href="#section-orders">Cohort & Funnel</a>
 </div>
 """, unsafe_allow_html=True)
 
@@ -549,7 +540,7 @@ def page_home():
   }
 </style></head><body>
 
-<div class="hero">
+<div class="hero" id="hero">
   <div class="chip"><span class="dot"></span> Live Analytics Dashboard</div>
   <h1>
     The Gioi Di Dong<br>
@@ -561,151 +552,58 @@ def page_home():
     data-driven decisions — all in one intelligent platform built for
     The Gioi Di Dong.
   </p>
-  <button class="btn" id="viewBtn">📊 View Dashboard →</button>
-
-  <div class="stats">
-    <div>
-      <div class="stat-val">12.4M+</div>
-      <div class="stat-lbl">Customers</div>
-    </div>
-    <div>
-      <div class="stat-val">34.5B ₫</div>
-      <div class="stat-lbl">Revenue 2024</div>
-    </div>
-    <div>
-      <div class="stat-val">2,300+</div>
-      <div class="stat-lbl">Stores</div>
-    </div>
-    <div>
-      <div class="stat-val">8.7M+</div>s
-      <div class="stat-lbl">Orders</div>
-    </div>
-  </div>
+  <button class="btn" id="viewBtn">View Dashboard</button>
 </div>
 
 <div class="star-wrap" id="stars"></div>
 
 <script>
-var EM = ['⭐','🌟','✨','💫','🌠','⭐','✨','🌟','💫','⭐','🌟','✨','🌟','⭐'];
+var EM = [];
 document.getElementById('viewBtn').addEventListener('click', function() {
-  var w = document.getElementById('stars');
-  w.innerHTML = ''; w.style.display = 'block';
-  EM.forEach(function(e, i) {
-    var s = document.createElement('span');
-    s.className = 'star'; s.textContent = e;
-    s.style.left = (3 + Math.random() * 92) + '%';
-    s.style.top  = (15 + Math.random() * 65) + '%';
-    s.style.animationDelay = (i * 0.06) + 's';
-    s.style.fontSize = (16 + Math.random() * 14) + 'px';
-    w.appendChild(s);
-  });
-  setTimeout(function() { w.style.display = 'none'; w.innerHTML = ''; }, 1600);
-  setTimeout(function() {
-    var el = window.parent.document.getElementById('section-overview');
-    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
-  }, 220);
+  var el = window.parent.document.getElementById('section-customers');
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
 });
 </script>
 </body></html>
-""", height=370, scrolling=False)
+""", height=520, scrolling=False)
 
         spacer(28)
 
-        # ── KPI Cards — st.columns + st.metric, styled dark via CSS override ──
-        sec_title("📈", "Key Performance Indicators")
-        spacer(8)
-        k1, k2, k3, k4 = st.columns(4, gap="medium")
-        k1.metric("👥 Total Customers",   "12.4M+",  "↑ +8.2% vs last year")
-        k2.metric("🛒 Total Orders 2024", "8.7M+",   "↑ +12.1% vs last year")
-        k3.metric("💰 Revenue 2024",      "34.5B ₫", "↑ +12.4% growth")
-        k4.metric("🏪 Stores Nationwide", "2,300+",  "↑ +120 new stores")
-
-        spacer(32)
-
         # ── Power BI sections — anchor tags for scroll ────────────────────────
-        st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("📊", "Overview Dashboard")
-        spacer(6)
-        embed_powerbi("overview", height=620)
-
-        spacer(24)
-
         st.markdown('<a id="section-customers" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("👥", "Customer Analytics — RFM & CLV")
+        sec_title("RFM Analysis")
         spacer(6)
         embed_powerbi("customers", height=620)
 
         spacer(24)
 
         st.markdown('<a id="section-orders" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("🛒", "Order Analytics — Revenue & Trends")
+        sec_title("Cohort & Funnel Analysis")
         spacer(6)
         embed_powerbi("orders", height=620)
-
-        spacer(24)
-
-        st.markdown('<a id="section-products" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("📦", "Product Analytics — Best Sellers")
-        spacer(6)
-        embed_powerbi("products", height=620)
-
-        spacer(24)
-
-        st.markdown('<a id="section-regional" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("📍", "Regional Analytics")
-        spacer(6)
-        embed_powerbi("regional", height=620)
-
-        spacer(28)
-
-        # ── Recent Activity ───────────────────────────────────────────────────
-        sec_title("🕒", "Recent Activity")
-        spacer(6)
-        st.markdown("""
-        <div style="background:#1C1C1F;border-radius:12px;border:1px solid #2A2A2E;
-                    overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4);">
-        <table class="tbl">
-            <thead><tr><th>Event</th><th>Time</th><th>Status</th></tr></thead>
-            <tbody>
-                <tr><td>📥 Q4 Data Import</td><td>2 minutes ago</td>
-                    <td><span class="badge bg">Completed</span></td></tr>
-                <tr><td>📊 December Report</td><td>1 hour ago</td>
-                    <td><span class="badge bg">Completed</span></td></tr>
-                <tr><td>🔄 CRM Sync</td><td>3 hours ago</td>
-                    <td><span class="badge bo">Processing</span></td></tr>
-                <tr><td>👥 RFM Analysis</td><td>Yesterday</td>
-                    <td><span class="badge bb">Scheduled</span></td></tr>
-                <tr><td>📦 Inventory Check</td><td>Yesterday</td>
-                    <td><span class="badge bg">Completed</span></td></tr>
-                <tr><td>⚠️ API Connection Error</td><td>2 days ago</td>
-                    <td><span class="badge br">Error</span></td></tr>
-            </tbody>
-        </table>
-        </div>""", unsafe_allow_html=True)
 
         spacer(28)
         st.markdown("""
         <div class="tgdd-footer">
             <span>© 2024 The Gioi Di Dong — Internal Analytics Platform</span>
-            <span>Built with ❤️ · Streamlit · Power BI · Azure</span>
+            <span>Built with Streamlit · Power BI · Azure</span>
         </div>""", unsafe_allow_html=True)
         spacer(32)
 
 
-def page_analytics(key: str, icon: str, title: str, desc: str):
+def page_analytics(key: str, title: str, desc: str):
     with st.container():
         spacer(20)
         st.markdown(f"""
         <div style="background:#1C1C1F;border:1px solid #2A2A2E;border-left:4px solid #FFD400;
                     border-radius:12px;padding:14px 18px;display:flex;align-items:center;
                     gap:13px;margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,.3);">
-            <span style="font-size:26px;flex-shrink:0;">{icon}</span>
             <div>
                 <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:2px;">{title}</div>
                 <div style="font-size:12px;color:#888;">{desc}</div>
             </div>
         </div>""", unsafe_allow_html=True)
-        sec_title(icon, title)
+        sec_title(title)
         spacer(6)
         embed_powerbi(key, height=720)
         spacer(32)
@@ -718,16 +616,15 @@ def page_settings():
         <div style="background:#1C1C1F;border:1px solid #2A2A2E;border-left:4px solid #FFD400;
                     border-radius:12px;padding:14px 18px;display:flex;align-items:center;
                     gap:13px;margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,.3);">
-            <span style="font-size:26px;">⚙️</span>
             <div>
                 <div style="font-size:14px;font-weight:700;color:#F0F0F0;margin-bottom:2px;">Settings & Data Upload</div>
                 <div style="font-size:12px;color:#888;">Configure Power BI URLs and upload data files.</div>
             </div>
         </div>""", unsafe_allow_html=True)
 
-        sec_title("🔗", "Power BI Embed URLs")
+        sec_title("Power BI Embed URLs")
         spacer(6)
-        st.info("💡 Power BI Service → **File → Embed report → Publish to web** → copy the `src` URL.")
+        st.info("Power BI Service -> File -> Embed report -> Publish to web -> copy the src URL.")
         with st.expander("Configure Report URLs", expanded=True):
             c1, c2 = st.columns(2)
             with c1:
@@ -740,11 +637,11 @@ def page_settings():
                 st.text_input("Summary Reports",    value=PBI["reports"],   placeholder="https://app.powerbi.com/view?r=...")
 
         spacer(18)
-        sec_title("📁", "Data File Upload")
+        sec_title("Data File Upload")
         spacer(6)
         uploaded = st.file_uploader("Drag & drop a CSV or Excel file", type=["csv", "xlsx", "xls"])
         if uploaded:
-            st.success(f"✅ **{uploaded.name}** ({uploaded.size / 1024:.1f} KB)")
+            st.success(f"**{uploaded.name}** ({uploaded.size / 1024:.1f} KB)")
             try:
                 df = (pd.read_csv(uploaded) if uploaded.name.endswith(".csv")
                       else pd.read_excel(uploaded))
@@ -756,24 +653,18 @@ def page_settings():
 
 # ─── ROUTER ──────────────────────────────────────────────────────────────────
 ROUTES = {
-    "🏠  Home":      page_home,
-    "📊  Dashboard": page_home,
-    "👥  Customers": lambda: page_analytics("customers", "👥",
-        "Customer Analytics — RFM & CLV",
+    "Home":      page_home,
+    "Dashboard": page_home,
+    "Customers": lambda: page_analytics("customers",
+        "RFM Analysis",
         "Segmentation, lifetime value and churn prediction."),
-    "🛒  Orders":    lambda: page_analytics("orders", "🛒",
-        "Order Analytics — Revenue & Trends",
+    "Orders":    lambda: page_analytics("orders",
+        "Cohort & Funnel Analysis",
         "Monthly revenue, AOV and order volume patterns."),
-    "📦  Products":  lambda: page_analytics("products", "📦",
-        "Product Analytics — Best Sellers",
-        "Category performance, return rates and cross-sell."),
-    "📍  Regional":  lambda: page_analytics("regional", "📍",
-        "Regional Analytics",
-        "Revenue distribution and store KPIs across Vietnam."),
-    "📈  Reports":   lambda: page_analytics("reports", "📈",
-        "Summary Reports",
-        "Executive KPI summaries and automated periodic reporting."),
-    "⚙️  Settings":  page_settings,
+    "Products":  page_home,
+    "Regional":  page_home,
+    "Reports":   page_home,
+    "Settings":  page_settings,
 }
 
 ROUTES.get(page, page_home)()
