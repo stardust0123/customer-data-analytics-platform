@@ -11,7 +11,7 @@ st.set_page_config(
 
 PBI = {
     "overview":  "",
-    "customers": "",
+    "customers": "https://app.powerbi.com/view?r=eyJrIjoiM2I2NTEzMWMtNTk4OC00ZWJiLWJjMjQtOWNlMGI2ZTlmMTM0IiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D",
     "orders":    "",
     "products":  "",
     "regional":  "",
@@ -267,6 +267,14 @@ def embed_powerbi(key: str, height: int = 620):
         <div class="pbi-empty">
             <iframe title="test" width="1500" height="400" src="https://app.powerbi.com/view?r=eyJrIjoiOGYzNTYxZmUtNmFhMC00ZmI0LTg2NTctMmQ4MzIwYjJhMTZlIiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>""", unsafe_allow_html=True)
+
+
+def embed_rfm_powerbi(height: int = 620):
+    url = "https://app.powerbi.com/view?r=eyJrIjoiM2I2NTEzMWMtNTk4OC00ZWJiLWJjMjQtOWNlMGI2ZTlmMTM0IiwidCI6ImRmN2Y3NTc5LTNlOWMtNGE3ZS1iODQ0LTQyMDI4MGY1Mzg1OSIsImMiOjEwfQ%3D%3D"
+    st.markdown(f"""
+    <div class="pbi-wrap">
+        <iframe src="{url}" height="{height}" allowfullscreen></iframe>
+    </div>""", unsafe_allow_html=True)
 
 
 # ─── SIDEBAR ─────────────────────────────────────────────────────────────────
@@ -552,23 +560,15 @@ def page_home():
     data-driven decisions — all in one intelligent platform built for
     The Gioi Di Dong.
   </p>
-  <button class="btn" id="viewBtn">View Dashboard</button>
 </div>
 
 <div class="star-wrap" id="stars"></div>
 
 <script>
 var EM = [];
-document.getElementById('viewBtn').addEventListener('click', function() {
-  var el = window.parent.document.getElementById('section-customers');
-  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
-});
 </script>
 </body></html>
 """, height=520, scrolling=False)
-
-
-        spacer(32)
 
         # ── Power BI sections — anchor tags for scroll ────────────────────────
         st.markdown('<a id="section-overview" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
@@ -581,16 +581,9 @@ document.getElementById('viewBtn').addEventListener('click', function() {
         st.markdown('<a id="section-customers" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
         sec_title("Customer Analytics — RFM Segmentation")
         spacer(6)
-        embed_powerbi("customers", height=620)
+        embed_rfm_powerbi(height=620)
 
         spacer(24)
-
-        st.markdown('<a id="section-orders" style="padding-top: calc(14vh + 8vh + 32px); margin-top: -calc(14vh + 8vh + 32px);"></a>', unsafe_allow_html=True)
-        sec_title("Cohort & Funnel Analysis")
-        spacer(6)
-        embed_powerbi("orders", height=620)
-
-        spacer(28)
         st.markdown("""
         <div class="tgdd-footer">
             <span>© 2024 The Gioi Di Dong — Internal Analytics Platform</span>
